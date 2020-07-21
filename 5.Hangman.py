@@ -6,32 +6,43 @@ wordBank = ["messy room", "sleepy baby", "sandwich meat", "pepperoni pizza", "ju
 
 def gamePlay():
     gameWord = random.randint(0, len(wordBank)-1)
-    counter = -1
     roundWord = (wordBank[int(gameWord)])
     print(roundWord)
     blankWord = []
 
     for i in roundWord:
         if ord(i) > 96:
-            blankWord.append(ord(i))
-        else:
             blankWord.append("_")
+        else:
+            blankWord.append(" ")
 
-    print(blankWord)
-    print(len(blankWord))
-    print(len(roundWord))
+    letterUsed=[]
+    cleanWord = ""
+    
 
     def oneRound():
-
-        letterUsed = []
+        
+        tick = -1
+        count = -1
+        print("\n\n\n", cleanWord.join(blankWord))
+        print("Tries Left", tries)
         print("\n\nLetters Used", letterUsed)
-        print("---|---")
 
-        #print(counter)
         userGuess = input("Guess a Letter \n")
         letterUsed.append(userGuess)
 
-        print(letterUsed)
+        for j in roundWord:
+            tick = tick + 1
+
+            if userGuess == j:
+                blankWord[tick] = userGuess
+            else:
+                count = count + 1
+
+        if count == tick:
+            
+
+        oneRound()
 
     oneRound()
 gamePlay()
