@@ -1,47 +1,78 @@
 import random
 
-wordBank = ["messy room", "sleepy baby", "sandwich meat", "pepperoni pizza", "junk food", "scary clowns",
-            "pesto and pasta", "sweet and sour cause", "cream cheese bagel", "double cheeseburger", "candied apples",
-            "italian sausage", "baby shark song"]
+wordBank = ["messy", "room", "sleepy", "baby", "sandwich", "meat", "pepperoni", "pizza", "junk", "food", "scary",
+            "clowns", "pesto", "pasta", "sweet", "sour", "cream", "cheese", "bagel", "double", "cheeseburger",
+            "candy", "apples", "italian", "sausage", "shark", "song"]
+gamenumber = []
 
 
 def gamePlay():
-        gameWord = random.randint(0, len(wordBank) - 1)
-        roundWord = (wordBank[int(gameWord)])
-        print(roundWord)
-        blankWord = []
+    gameWord = random.randint(0, len(wordBank)-1)
+    roundWord = (wordBank[int(gameWord)])
+    blankWord = []
+    letterUsed = []
+    cleanWord = ""
+    counter = []
 
-        for i in roundWord:
-            if ord(i) > 96:
-                blankWord.append("_")
+
+    for i in roundWord:
+        if ord(i) > 96:
+            blankWord.append("_")
+        else:
+            blankWord.append(" ")
+
+
+
+
+    def oneRound():
+
+        if roundWord == cleanWord.join(blankWord):
+            print("\n\n\n\n\nCONGRATZ YOU WIN!!\n\n")
+            again = input("\n\n\nPLAY AGAIN (Y or N)?\n\n\n\n")
+            if again == "Y" or again == "y":
+                gamenumber.append("a")
+                gamePlay()
             else:
-                blankWord.append(" ")
+                return print("bye bye champ")
+            return
 
-        letterUsed = []
-        cleanWord = ""
+        elif len(counter) == 6:
+            print("\n\n\n\n\n\nSORRY YOU LOSE!!\n\n")
+            again = input("\n\n\nPLAY AGAIN (Y or N)?\n\n\n\n")
+            if again == "Y" or again == "y":
+                gamenumber.append("a")
+                gamePlay()
+            else:
+                return print("bye bye loser")
+            return
+
+        yup = 0
+        tick = -1
+        print("\n\nGame #", len(gamenumber)+1)
+        print("\n\n\n", cleanWord.join(blankWord), "                Turns Left", 6-len(counter))
+        print("\nUsed", letterUsed)
 
 
-        def oneRound():
 
-            tick = -1
-            count = -1
-            print("\n\n\n", cleanWord.join(blankWord))
-            print("Tries Left", "")
-            print("\n\nLetters Used", letterUsed)
+        userGuess = input("\n\n\n\nGuess a Letter    ")
+        letterUsed.append(userGuess)
 
-            userGuess = input("Guess a Letter \n")
-            letterUsed.append(userGuess)
+        for j in roundWord:
+            tick = tick + 1
 
-            for j in roundWord:
-                tick = tick + 1
+            if userGuess == j:
+                yup = yup + tick
+                blankWord[tick] = userGuess
 
-                if userGuess == j:
-                    blankWord[tick] = userGuess
-                else:
-                    count = count + 1
-
-            oneRound()
+        if yup == 0:
+            counter.append("a")
 
         oneRound()
 
+
+
+
+
+
+    oneRound()
 gamePlay()
